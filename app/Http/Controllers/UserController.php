@@ -185,7 +185,7 @@ class UserController extends Controller
             'user_id' => 'required|numeric',
         ]);
         $user = User::findOrFail($request->user_id);
-        $password = rand_string( 10 );
+        $password = str_random(10);
         $user->password = bcrypt($password);
         $user->status = '0';
         $user->save();
@@ -200,7 +200,7 @@ class UserController extends Controller
         {
             foreach ($request->arr as $user_id) {
                 $user = User::findOrFail($user_id);
-                $password = rand_string( 10 );
+                $password = str_random(10);
                 $user->password = bcrypt($password);
                 $user->status = '0';
                 $user->save();
