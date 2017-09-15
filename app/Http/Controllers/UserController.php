@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function index()
     {
-        if (Auth::user()->root == 1) //Check user permissions
+        if (Auth::user()->root == 1)
         {
             $users = User::all();
             return view('users.index')->withUsers($users)->with('label', 'All users');
@@ -45,7 +45,7 @@ class UserController extends Controller
         return view('infomation.edit')->with('user', $user);
     }
 
-    public function updateInfomation(Request $request) //updated infomation of user by user
+    public function updateInfomation(Request $request)
     {
         $request->validate([
             'username' => 'required|max:100|min:5|unique:users,username,'.Auth::user()->id,
@@ -162,6 +162,7 @@ class UserController extends Controller
         $user->save();
         return redirect('/users')->withSuccess("The user has been successfully updated");
     }
+
     /**
     * Delete user
     *
@@ -185,7 +186,7 @@ class UserController extends Controller
             'user_id' => 'required|numeric',
         ]);
         $user = User::findOrFail($request->user_id);
-        $password = rand_string( 10 );
+        $password = "123456";
         $user->password = bcrypt($password);
         $user->status = '0';
         $user->save();
@@ -200,7 +201,7 @@ class UserController extends Controller
         {
             foreach ($request->arr as $user_id) {
                 $user = User::findOrFail($user_id);
-                $password = rand_string( 10 );
+                $password = "123456";
                 $user->password = bcrypt($password);
                 $user->status = '0';
                 $user->save();
@@ -221,4 +222,5 @@ class UserController extends Controller
                 ));            });
         })->export('xlsx');
     }
+
 }
