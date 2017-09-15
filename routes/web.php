@@ -39,7 +39,7 @@ Route::post('/users/resetpassword/{id}', 'UserController@resetPassword')->middle
 Route::post('/users/resetmultiplepasswords', 'UserController@resetMultiplePasswords')->middleware('auth');
 
 Route::get('/users/exportToExcel', 'UserController@exportToExcel')->middleware('auth');
-
+Route::get('/users/autocomplete', 'UserController@autocomplete')->name('autocomplete')->middleware('auth');
 
 Route::get('/departments', 'DepartmentController@index')->middleware('auth');
 Route::get('/departments/create', 'DepartmentController@create')->middleware('auth');
