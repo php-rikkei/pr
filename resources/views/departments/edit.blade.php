@@ -16,7 +16,7 @@
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ $department->name }}" required maxlength="100" minlength="6" >
+                                <input id="name" type="text" class="form-control" name="name" value="{{ $department->name }}" required maxlength="100" minlength="3" >
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">

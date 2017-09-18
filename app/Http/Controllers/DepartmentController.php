@@ -24,9 +24,9 @@ class DepartmentController extends Controller
             'name' => 'required|max:100|min:3',
         ]);
 
-        $department = new Department;
-        $department->name = $request->name;
-        $department->save();
+        $data = ['name' => $request->name];
+
+        $department = Department::insertDepartment($data);
 
         return redirect('/departments')->withSuccess("The department has been successfully created");
     }
@@ -41,16 +41,17 @@ class DepartmentController extends Controller
         $request->validate([
             'name' => 'required|max:100|min:3',
         ]);
-        $department = Department::find($request->id);
-        $department->name = $request->name;
-        $department->save();
+        $data = [
+            'id' => $request->id,
+            'name' => $request->name,
+        ];
   
         return redirect('/departments')->withSuccess("The department has been successfully updated");
     }
 
     public function destroy($id)
     {
-        $department = Department::find($id);
+        $department = Department::getDepartmentByID($id);
         if (count($department->users) == 0)
         {
             $department->delete();
