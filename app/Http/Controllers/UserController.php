@@ -17,12 +17,12 @@ class UserController extends Controller
     {
         if (Auth::user()->root == 1)
         {
-            $users = User::all();
+            $users = User::paginate(3);
             return view('users.index')->withUsers($users)->with('label', 'All users');
         }
         else if (Auth::user()->is_manager == 1)
             {
-                $users = User::where('department_id', '=', Auth::user()->department_id)->get();
+                $users = User::where('department_id', '=', Auth::user()->department_id)->paginate(3)->get();
                 /*dd(Auth::user()->department_id);*/
                 $label = "Department: ".Auth::user()->department->name;
                 return view('users.index')->withUsers($users)->with('label', $label);
