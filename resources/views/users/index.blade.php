@@ -21,6 +21,7 @@
         #list_item li {
             margin: 2px 2px 2px 2px;
             background: #fff;
+            padding: 5px;
         }
     </style>
 @endsection
@@ -48,46 +49,48 @@
                 @endif
                 <div id="message"></div>
                 <div class="panel-body">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>ID</th>
-                            <th>User name</th>
-                            <th>Name</th>
-                            <th>Department</th>
-                            <th>Manager</th>
-                            <th>Email</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $user)
+                    <table class="table table-hover">
+                        <thead>
                             <tr>
-                                <th><input type="checkbox" name="check[]" class="check" value="{{ $user->id }}"></th>
-                                <th>{{ $user->id }}</th>
-                                <th>{{ $user->username }}</th>
-                                <th>{{ $user->name }}</th>
-                                <th>{{ $user->department->name }}</th>
-                                <th>@if ($user->is_manager == 1) Yes @else No @endif</th>
-                                <th>{{ $user->email }}</th>
-                                <th>
-                                    <a href="{{ url('users/edit/'.$user->id) }}" class="edit btn-link">Edit</a> / 
-                                    <form action="{{ url('users/delete/'.$user->id) }}" method="DELETE"> 
-                                        {{ csrf_field() }}
-                                        <input type="hidden" name="user_id" value="{{ $user->id }}"> 
-                                        <button type="submit" onclick="return confirm('Are you sure?')" class="btn-link">Delete</button>
-                                    </form> / 
-                                    <form action="{{ url('users/resetpassword/'.$user->id) }}" method="POST"> 
-                                        {{ csrf_field() }}
-                                        <input type="hidden" name="user_id" value="{{ $user->id }}"> 
-                                        <button type="submit" onclick="return confirm('Are you sure?')" class="btn-link">Reset Password</button>
-                                    </form>
-                                </th>
+                                <th></th>
+                                <th>ID</th>
+                                <th>User name</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Manager</th>
+                                <th>Email</th>
+                                <th></th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $user)
+                                <tr>
+                                    <th><input type="checkbox" name="check[]" class="check" value="{{ $user->id }}"></th>
+                                    <th>{{ $user->id }}</th>
+                                    <th>{{ $user->username }}</th>
+                                    <th>{{ $user->name }}</th>
+                                    <th>{{ $user->department->name }}</th>
+                                    <th>@if ($user->is_manager == 1) Yes @else No @endif</th>
+                                    <th>{{ $user->email }}</th>
+                                    <th>
+                                        <a href="{{ url('users/edit/'.$user->id) }}" class="edit btn-link">Edit</a> /
+                                        <form action="{{ url('users/delete/'.$user->id) }}" method="DELETE">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                            <button type="submit" onclick="return confirm('Are you sure?')" class="btn-link">Delete</button>
+                                        </form> /
+                                        <form action="{{ url('users/resetpassword/'.$user->id) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                            <button type="submit" onclick="return confirm('Are you sure?')" class="btn-link">Reset Password</button>
+                                        </form>
+                                    </th>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <div style="width: 100%">{!! $users->links() !!}</div>
+
                 <a class="btn btn-success" href="" onclick="return confirm('Are you sure?') ? resetMultiplePassword() : ''">Reset password</a>
                 <a class="btn btn-primary" href="{{ url('users/exportToExcel') }}" onclick="return confirm('Are you sure?')">Export to excel</a>
                 </div>
@@ -161,6 +164,10 @@
                         data.forEach(function(user) {
                             html = html + "<li><a href='{{ url('users') }}" + "/" + user.id + "'>"+ user.name +"</a></li>";
                         });
+                        if (data.length == 0)
+                        {
+                            html = html + "<li>No search results</li>";
+                        }
                         $('#list_item').html(html);
                         /*console.log(html);*/
                         /* console.log(data);*/
@@ -168,7 +175,7 @@
                     error: function (data) {
                         console.log('Error:', data);
                     },
-                    timeout: 1000 //sets timeout to 2 seconds
+                    timeout: 1000 //sets timeout to 1 seconds
                 });
             } else
             {
