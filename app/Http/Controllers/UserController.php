@@ -128,7 +128,7 @@ class UserController extends Controller
         else if (Auth::user()->is_manager == 1)
             {
                 $department_id = Auth::user()->department_id;
-                $departments = Department::where('id', '=', $department_id)->get();
+                $departments = Department::getDepartmentByID($department_id);
             }
         return view('users.create')->with('departments', $departments);
     }
