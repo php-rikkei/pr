@@ -28,7 +28,7 @@ class DepartmentController extends Controller
 
         $department = Department::insertDepartment($data);
 
-        return redirect('/departments')->withSuccess("The department has been successfully created");
+        return redirect('/departments')->withSuccess(\Message::INSERT_DEPARTMENT_SUCCESS);
     }
     public function edit($id)
     {
@@ -46,7 +46,7 @@ class DepartmentController extends Controller
             'name' => $request->name,
         ];
   
-        return redirect('/departments')->withSuccess("The department has been successfully updated");
+        return redirect('/departments')->withSuccess(\Message::UPDATE_DEPARTMENT_SUCCESS);
     }
 
     public function destroy($id)
@@ -55,11 +55,11 @@ class DepartmentController extends Controller
         if (count($department->users) == 0)
         {
             $department->delete();
-            return redirect('/departments')->withSuccess("The department has been successfully deleted");
+            return redirect('/departments')->withSuccess(\Message::DELETE_DEPARTMENT_SUCCESS);
         }
         else
         {
-            return redirect('/departments')->withSuccess("Failed. Existing personnel in the department");
+            return redirect('/departments')->withSuccess(\Message::DELETE_DEPARTMENT_WARNING);
         }
     }
 }

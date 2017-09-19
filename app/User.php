@@ -139,7 +139,7 @@ class User extends Authenticatable
      */
     public static function getAllUsersByDepartment()
     {
-        $users =   User::where('department_id', '=', Auth::user()->department_id)->paginate(3);
+        $users =   User::where('department_id', '=', Auth::user()->department_id)->paginate(PAGE_NUM);
         return $users;
     }
 

@@ -162,7 +162,7 @@ class UserController extends Controller
 
         $user->password = $request->password;
         Mail::to($user->email)->send(new SendInfomation($user));
-        return redirect('/users')->withSuccess("The user has been successfully created");
+        return redirect('/users')->withSuccess(\Message::INSERT_USER_SUCCESS);
     }
 
     /**
@@ -216,7 +216,7 @@ class UserController extends Controller
         ];
         $user = User::updateUser($data);
 
-        return redirect('/users')->withSuccess("The user has been successfully updated");
+        return redirect('/users')->withSuccess(\Message::UPDATE_USER_SUCCESS);
     }
 
     /**
@@ -231,7 +231,7 @@ class UserController extends Controller
             'user_id' => 'required|numeric',
         ]);
         User::deleteUser($request->user_id);
-        return redirect('/users')->withSuccess("The user has been successfully deleted");
+        return redirect('/users')->withSuccess(\Message::DELETE_USER_SUCCESS);
     }
 
     /**
@@ -250,7 +250,7 @@ class UserController extends Controller
         $user = User::resetPasswordUser($request->user_id, $password);
         $user->password = $password;
         Mail::to($user->email)->send(new SendInfomation($user));
-        return redirect('/users')->withSuccess("The password has been reset");
+        return redirect('/users')->withSuccess(\Message::RESET_PASSWORD_SUCCESS);
     }
 
     /**
