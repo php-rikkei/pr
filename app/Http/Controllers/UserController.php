@@ -279,7 +279,7 @@ class UserController extends Controller
      */
     public function exportToExcel() //Export users to excel
     {
-        $export = User::getAllUserstoExport();
+        $export = User::select('id', 'username', 'name', 'email')->get();
         Excel::create('export data', function($excel) use($export){
             $excel->sheet('Sheet 1', function($sheet) use($export){
                 $sheet->fromArray($export);
@@ -289,4 +289,16 @@ class UserController extends Controller
         })->export('xlsx');
     }
 
+    /**
+     * Search user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return Redirect
+     */
+    public function search(Request $request)
+    {
+        $users = User::select('id','name')->where('name', 'like', '%'.$request->key.'%')->get();
+
+        return view('users.search')->with('users', $users)->with('key' , $request->key);
+    }
 }

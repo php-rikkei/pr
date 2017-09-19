@@ -40,6 +40,7 @@ Route::post('/users/resetmultiplepasswords', 'UserController@resetMultiplePasswo
 
 Route::get('/users/exportToExcel', 'UserController@exportToExcel')->middleware('auth');
 Route::get('/users/autocomplete', 'UserController@autocomplete')->name('autocomplete')->middleware('auth');
+Route::get('/users/search', 'UserController@search')->middleware('auth');
 
 Route::get('/departments', 'DepartmentController@index')->middleware('auth');
 Route::get('/departments/create', 'DepartmentController@create')->middleware('auth');

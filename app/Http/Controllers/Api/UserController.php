@@ -14,9 +14,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return Json
      */
-    public function autocomplete(Request $request)
+    public function search(Request $request)
     {
-        $users = User::select('id','name')->where('name', 'like', '%'.$request->k.'%')->get();
+        $users = User::select('id','name')->where('name', 'like', '%'.$request->term.'%')->get();
 
         return $users->toJson();
     }

@@ -19,4 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/department/{id}', 'Api\DepartmentController@show');
 Route::get('/department', 'Api\DepartmentController@index');
 
-Route::get('/users/autocomplete', 'Api\UserController@autocomplete');
+Route::get('/users/autocomplete', 'Api\UserController@search');

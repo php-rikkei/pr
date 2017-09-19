@@ -1,0 +1,29 @@
+#div_search {
+    position: relative;
+}
+
+#list_item {
+    z-index: 100;
+    list-style-type: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #eee;
+    padding: 0px;
+}
+
+#list_item li {
+    margin: 2px 2px 2px 2px;
+    background: #fff;
+    padding: 5px;
+}
+
+#list_item li a {
+    display: block;
+    text-decoration: none;
+}
+
+#list_item li:hover {
+    background: yellow;
+}
