@@ -36,6 +36,18 @@ class User extends Authenticatable
     }
 
     /**
+     * get all user
+     *
+     * @param
+     * @return Collection
+     */
+    public static function getAllUsers()
+    {
+        $users =  User::paginate(PAGE_NUM);
+        return $users;
+    }
+
+    /**
      * Store a new user in the database.
      *
      * @param  array
@@ -120,18 +132,6 @@ class User extends Authenticatable
     }
 
     /**
-     * get all user
-     *
-     * @param
-     * @return Collection
-     */
-    public static function getAllUsers()
-    {
-        $users =  User::paginate(PAGE_NUM);
-        return $users;
-    }
-
-    /**
      * get all user by department_id of manager
      *
      * @param
@@ -156,7 +156,7 @@ class User extends Authenticatable
     }
 
     /**
-     * update current  user by id
+     * update current  user
      *
      * @param array
      * @return Object
@@ -171,6 +171,21 @@ class User extends Authenticatable
         }
         $user->name = $data['name'];
         $user->email = $data['email'];
+        $user->save();
+        return $user;
+    }
+
+    /**
+     * update password of current  user
+     *
+     * @param string
+     * @return Object
+     */
+    public static function updatePasswordCurrentUser($password)
+    {
+        $user = Auth::user();
+        $user->password = bcrypt($password);
+        $user->status = '1';
         $user->save();
         return $user;
     }

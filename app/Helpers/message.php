@@ -9,6 +9,7 @@
 
  */
 
+
 class Message {
 
     //for user table
@@ -18,8 +19,8 @@ class Message {
     const RESET_PASSWORD_SUCCESS = 'The password has been reset';
 
     //for department table
-    const INSERT_DEPARTMENT_SUCCESS = 'Insert Success, Complete!';
-    const UPDATE_DEPARTMENT_SUCCESS = 'Update Success, Complete!';
-    const DELETE_DEPARTMENT_SUCCESS = 'Delete Success, Complete!';
-    const DELETE_DEPARTMENT_WARNING = 'Can\'t delete! ';
+    const INSERT_DEPARTMENT_SUCCESS = 'The department has been successfully created';
+    const UPDATE_DEPARTMENT_SUCCESS = 'The department has been successfully updated';
+    const DELETE_DEPARTMENT_SUCCESS = 'The department has been successfully deleted';
+    const DELETE_DEPARTMENT_WARNING = 'Failed. Existing personnel in the department ';
 }

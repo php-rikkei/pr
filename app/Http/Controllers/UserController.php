@@ -10,6 +10,7 @@ use App\Department;
 use App\Mail\SendInfomation;
 use Maatwebsite\Excel\Facades\Excel;
 
+
 class UserController extends Controller
 {
     /**
@@ -76,18 +77,14 @@ class UserController extends Controller
             'name' => 'required|max:100|min:6',
             'email' => 'required|email|unique:users,email,'.Auth::user()->id,
         ]);
-
-        $user = Auth::user();
-        $user->username = $request->username;
-        if ($user->password != $request->password)
-        {
-            $user->password = bcrypt($request->password);
-        }
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->save();
-
-        return redirect('/infomation')->withSuccess("The user has been successfully updated");
+        $data = [
+            'username' => $request->username,
+            'password' => $request->password,
+            'name' => $request->name,
+            'email' => $request->email,
+        ];
+        User::updateCurrentUser($data);
+        return redirect('/infomation')->withSuccess(\Message::UPDATE_USER_SUCCESS);
     }
 
     /**
@@ -113,10 +110,7 @@ class UserController extends Controller
         $this->validate($request, [
         'password' => 'required|confirmed|min:6',
         ]);
-        $user = Auth::user();
-        $user->password = bcrypt($request->password);
-        $user->status = '1';
-        $user->save();
+        User::updatePasswordCurrentUser($request->password);
         return redirect('/home');
     }
 

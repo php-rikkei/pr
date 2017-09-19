@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 return [
 
@@ -176,10 +176,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
         Collective\Html\HtmlServiceProvider::class,
-
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        App\Providers\HelperServiceProvider::class
 
     ],
 
